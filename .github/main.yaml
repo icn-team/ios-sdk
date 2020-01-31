@@ -1,9 +1,0 @@
-name: Build and Deploy
-on:
-  schedule:
-    - cron:  '30 1 * * *'  
-  push:
-jobs:
-
-  build-and-deploy:
-    runs-on: macos-latest
