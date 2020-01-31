@@ -22,24 +22,24 @@ init:
 
 openssl: init
 	@if [ ! -d usr/include/openssl ]; then cd scripts/OpenSSL-for-iPhone && ./build-libssl.sh --cleanup  --deprecated --targets="ios-sim-cross-x86_64 ios64-cross-arm64 ios64-cross-arm64e" && cp -r include/openssl ../../usr/include && cp -r lib/*.a ../../usr/lib; fi;
-
+	
 download_libevent: init
 	@cd ${BASE_DIR}/src && if [ ! -d libevent ]; then echo "libevent not found"; git clone https://github.com/libevent/libevent.git; cd libevent; git checkout tags/release-2.1.11-stable; fi;
 
 libevent: download_libevent
-	@mkdir -p build/libevent && cd build/libevent && cmake ${BASE_DIR}/src/libevent -G Xcode -DCMAKE_TOOLCHAIN_FILE=${BASE_DIR}/cmake/ios.toolchain.cmake -DPLATFORM=OS64COMBINED -DCMAKE_FIND_ROOT_PATH=${BASE_DIR}/usr  -DCMAKE_INSTALL_PREFIX=${BASE_DIR}/usr -DOPENSSL_ROOT_DIR=${BASE_DIR}/usr -DEVENT__DISABLE_TESTS=ON -DEVENT__DISABLE_SAMPLES=ON -DEVENT__LIBRARY_TYPE=STATIC -DEVENT__HAVE_EPOLL=OFF -DEVENT__HAVE_PIPE2=OFF -DEVENT__DISABLE_BENCHMARK=ON && cmake --build . --config Release --target install
+	@mkdir -p build/libevent && cd build/libevent && cmake ${BASE_DIR}/src/libevent -G Xcode -DCMAKE_TOOLCHAIN_FILE=${BASE_DIR}/cmake/ios.toolchain.cmake -DPLATFORM=OS64COMBINED -DCMAKE_FIND_ROOT_PATH=${BASE_DIR}/usr -DCMAKE_INSTALL_PREFIX=${BASE_DIR}/usr -DOPENSSL_ROOT_DIR=${BASE_DIR}/usr -DEVENT__DISABLE_TESTS=ON -DEVENT__DISABLE_SAMPLES=ON -DEVENT__LIBRARY_TYPE=STATIC -DEVENT__HAVE_EPOLL=OFF -DEVENT__HAVE_PIPE2=OFF -DEVENT__DISABLE_BENCHMARK=ON && cmake --build . --config Release --target install
 
 download_libparc: init
 	@cd ${BASE_DIR}/src && if [ ! -d cframework ]; then echo "cframework not found"; git clone -b cframework/master https://gerrit.fd.io/r/cicn cframework; fi;
 
 libparc: download_libparc
-	@mkdir -p build/libparc && cd build/libparc && cmake ${BASE_DIR}/src/cframework/libparc -G Xcode -DCMAKE_TOOLCHAIN_FILE=${BASE_DIR}/cmake/ios.toolchain.cmake -DPLATFORM=OS64COMBINED -DCMAKE_FIND_ROOT_PATH=${BASE_DIR}/usr  -DCMAKE_INSTALL_PREFIX=${BASE_DIR}/usr -DOPENSSL_ROOT_DIR=${BASE_DIR}/usr -DDISABLE_EXECUTABLES=ON -DDISABLE_SHARED_LIBRARIES=ON -DDEPLOYMENT_TARGET=13.0 && cmake --build . --config Release --target install
+	@mkdir -p build/libparc && cd build/libparc && cmake ${BASE_DIR}/src/cframework/libparc -G Xcode -DCMAKE_TOOLCHAIN_FILE=${BASE_DIR}/cmake/ios.toolchain.cmake -DPLATFORM=OS64COMBINED -DCMAKE_FIND_ROOT_PATH=${BASE_DIR}/usr -DCMAKE_INSTALL_PREFIX=${BASE_DIR}/usr -DOPENSSL_ROOT_DIR=${BASE_DIR}/usr -DDISABLE_EXECUTABLES=ON -DDISABLE_SHARED_LIBRARIES=ON -DDEPLOYMENT_TARGET=13.0 && cmake --build . --config Release --target install
 
 download_libconfig: init
 	@cd ${BASE_DIR}/src && if [ ! -d libconfig ]; then echo "libconfig not found"; git clone https://github.com/hyperrealm/libconfig.git; cd libconfig; git checkout a6b370e78578f5bf594f8efe0802cdc9b9d18f1a; fi;
 
 libconfig: download_libconfig
-	@mkdir -p build/libconfig && cd build/libconfig && cmake ${BASE_DIR}/src/libconfig -G Xcode -DCMAKE_TOOLCHAIN_FILE=${BASE_DIR}/cmake/ios.toolchain.cmake -DPLATFORM=OS64COMBINED -DCMAKE_FIND_ROOT_PATH=${BASE_DIR}/usr  -DCMAKE_INSTALL_PREFIX=${BASE_DIR}/usr -DBUILD_SHARED_LIBS=OFF -DBUILD_EXAMPLES=OFF -DBUILD_TESTS=OFF && cmake --build . --config Release --target install
+	@mkdir -p build/libconfig && cd build/libconfig && cmake ${BASE_DIR}/src/libconfig -G Xcode -DCMAKE_TOOLCHAIN_FILE=${BASE_DIR}/cmake/ios.toolchain.cmake -DPLATFORM=OS64COMBINED -DCMAKE_FIND_ROOT_PATH=${BASE_DIR}/usr -DCMAKE_INSTALL_PREFIX=${BASE_DIR}/usr -DBUILD_SHARED_LIBS=OFF -DBUILD_EXAMPLES=OFF -DBUILD_TESTS=OFF && cmake --build . --config Release --target install
 
 download_asio: init
 	@cd ${BASE_DIR}/src && if [ ! -d asio ]; then echo "Asio directory not found"; git clone https://github.com/chriskohlhoff/asio.git; cd asio; git checkout tags/asio-1-12-2;	fi;
