@@ -20,6 +20,6 @@ jobs:
         echo test, and deploy your project.
         ls /Applications
         export QT_CI_LOGIN=${{ secrets.QT_CI_LOGIN }}
-        exoirt QT_CI_PASSWORD=${{ secrets.QT_CI_PASSWORD }}
+        export QT_CI_PASSWORD=${{ secrets.QT_CI_PASSWORD }}
         make init_qt
         make all
