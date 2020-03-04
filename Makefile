@@ -16,9 +16,17 @@
 default.target: help
 
 export BASE_DIR=$(shell pwd)
+export QT_HOME=`pwd`/Qt
+export QT_VERSION=5.13.2
+export QT_VERSION_INSTALL=5132
+export QT_CI_PACKAGES=qt.qt5.${QT_VERSION_INSTALL}.ios,qt.qt5.${QT_VERSION_INSTALL}.qtcharts.ios,qt.qt5.${QT_VERSION_INSTALL}.qtcharts
 
 init:
 	@mkdir -p usr/lib && mkdir -p usr/include && mkdir -p src
+
+init_qt:
+	@mkdir -p qt
+	@cd qt && if [ ! -d qtci ]; then git clone https://github.com/benlau/qtci.git; fi && export PATH=`pwd`/qtci/bin:`pwd`/qtci/recipes:"${PATH}" && install-qt ${QT_VERSION}
 
 openssl: init
 	@if [ ! -d usr/include/openssl ]; then cd scripts/OpenSSL-for-iPhone && ./build-libssl.sh --cleanup  --deprecated --targets="ios-sim-cross-x86_64 ios64-cross-arm64 ios64-cross-arm64e" && cp -r include/openssl ../../usr/include && cp -r lib/*.a ../../usr/lib; fi;
