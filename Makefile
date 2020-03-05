@@ -89,7 +89,7 @@ hicn: download_hicn
 	@mkdir -p build/hicn/SIMULATOR64 && cd build/hicn/SIMULATOR64 && cmake ${BASE_DIR}/src/hicn -G Xcode -DCMAKE_TOOLCHAIN_FILE=${BASE_DIR}/cmake/ios.toolchain.cmake -DPLATFORM=SIMULATOR64 -DCMAKE_FIND_ROOT_PATH=${BASE_DIR}/usr  -DCMAKE_INSTALL_PREFIX=${BASE_DIR}/build/hicn/SIMULATOR64 -DOPENSSL_ROOT_DIR=${BASE_DIR}/usr -DDISABLE_EXECUTABLES=ON -DDISABLE_SHARED_LIBRARIES=ON -DDEPLOYMENT_TARGET=13.0 && cmake --build . --config Release --target install
 	@cp -rf ${BASE_DIR}/build/hicn/OS64/include/* ${BASE_DIR}/usr/include/
 	@lipo -create ${BASE_DIR}/build/hicn/OS64/lib/libfacemgr.a ${BASE_DIR}/build/hicn/SIMULATOR64/lib/libfacemgr.a -output ${BASE_DIR}/usr/lib/libfacemgr.a
-	@lipo -create ${BASE_DIR}/buienld/hicn/OS64/lib/libhicn-light.a ${BASE_DIR}/build/hicn/SIMULATOR64/lib/libhicn-light.a -output ${BASE_DIR}/usr/lib/libhicn-light.a
+	@lipo -create ${BASE_DIR}/build/hicn/OS64/lib/libhicn-light.a ${BASE_DIR}/build/hicn/SIMULATOR64/lib/libhicn-light.a -output ${BASE_DIR}/usr/lib/libhicn-light.a
 	@lipo -create ${BASE_DIR}/build/hicn/OS64/lib/libhicn.a ${BASE_DIR}/build/hicn/SIMULATOR64/lib/libhicn.a -output ${BASE_DIR}/usr/lib/libhicn.a
 	@lipo -create ${BASE_DIR}/build/hicn/OS64/lib/libhicnctrl.a ${BASE_DIR}/build/hicn/SIMULATOR64/lib/libhicnctrl.a -output ${BASE_DIR}/usr/lib/libhicnctrl.a
 	@lipo -create ${BASE_DIR}/build/hicn/OS64/lib/libhicntransport.a ${BASE_DIR}/build/hicn/SIMULATOR64/lib/libhicntransport.a -output ${BASE_DIR}/usr/lib/libhicntransport.a
