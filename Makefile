@@ -97,7 +97,7 @@ hicn: download_hicn
 download_curl: init
 	@cd ${BASE_DIR}/src && if [ ! -d curl ]; then echo "curl not found"; git clone https://github.com/curl/curl.git; cd curl; git checkout tags/curl-7_66_0; fi;
 
-curl: download_curl
+curl: download_curl openssl
 	@mkdir -p build/curl/OS64 && cd build/curl/OS64 && cmake ${BASE_DIR}/src/curl -G Xcode -DCMAKE_TOOLCHAIN_FILE=${BASE_DIR}/cmake/ios.toolchain.cmake -DPLATFORM=OS64 -DCMAKE_FIND_ROOT_PATH=${BASE_DIR}/usr  -DCMAKE_INSTALL_PREFIX=${BASE_DIR}/build/curl/OS64 -DOPENSSL_ROOT_DIR=${BASE_DIR}/usr -DBUILD_CURL_EXE=OFF -DBUILD_SHARED_LIBS=OFF -DBUILD_TESTING=OFF -DDEPLOYMENT_TARGET=13.0 && cmake --build . --config Release --target install
 	@mkdir -p build/curl/SIMULATOR64 && cd build/curl/SIMULATOR64 && cmake ${BASE_DIR}/src/curl -G Xcode -DCMAKE_TOOLCHAIN_FILE=${BASE_DIR}/cmake/ios.toolchain.cmake -DPLATFORM=SIMULATOR64 -DCMAKE_FIND_ROOT_PATH=${BASE_DIR}/usr  -DCMAKE_INSTALL_PREFIX=${BASE_DIR}/build/curl/SIMULATOR64 -DOPENSSL_ROOT_DIR=${BASE_DIR}/usr -DBUILD_CURL_EXE=OFF -DBUILD_SHARED_LIBS=OFF -DBUILD_TESTING=OFF -DDEPLOYMENT_TARGET=13.0 && cmake --build . --config Release --target install
 	@cp -rf ${BASE_DIR}/build/curl/OS64/include/* ${BASE_DIR}/usr/include/
@@ -137,7 +137,7 @@ all: openssl libevent libconfig asio libparc hicn
 
 qt_dep: init_qt ffmpeg qtav curl libdash
 
-all_qt: all qt_dep
+all_qt: qt_dep all
 
 help:
 	@echo "---- Basic build targets ----"
