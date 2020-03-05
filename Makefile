@@ -103,7 +103,6 @@ curl: download_curl
 	@cp -rf ${BASE_DIR}/build/curl/OS64/include/* ${BASE_DIR}/usr/include/
 	@lipo -create ${BASE_DIR}/build/curl/OS64/lib/libcurl.a ${BASE_DIR}/build/curl/SIMULATOR64/lib/libcurl.a -output ${BASE_DIR}/usr/lib/libcurl.a
 
-
 download_ffmpeg: init
 	@cd ${BASE_DIR}/src && if [ ! -d ffmpeg ]; then if [ ! -f ffmpeg-4.2-iOS-lite.tar.gz ]; then echo "ffmpeg not found"; wget https://iweb.dl.sourceforge.net/project/avbuild/iOS/ffmpeg-4.2-iOS-lite.tar.xz; fi; tar xf ffmpeg-4.2-iOS-lite.tar.xz; rm -rf ffmpeg-4.2-iOS-lite.tar.xz; mv ffmpeg-4.2-iOS-lite ffmpeg; fi;
 
@@ -143,6 +142,8 @@ all_qt: all qt_dep
 help:
 	@echo "---- Basic build targets ----"
 	@echo "make all					- Compile hICN libraries and the dependencies"
+	@echo "make all_qt					- Compile hICN libraries, install the Qt environment and build all the dependencies"
+	@echo "make init_qt					- Install the Qt environment"
 	@echo "make openssl					- Compile openssl"
 	@echo "make download_libevent				- Download libevent"
 	@echo "make libevent					- Download and compile libevent"
@@ -154,6 +155,14 @@ help:
 	@echo "make asio					- Download and install asio"
 	@echo "make download_hicn				- Download hicn source code"
 	@echo "make hicn					- Download and compile hicn"
+	@echo "make download_ffmpeg				- Download ffmpeg libs"
+	@echo "make ffmpeg					- Download and install ffmpeg"
+	@echo "make download_curl				- Download libcurl source code"
+	@echo "make hicn					- Download and compile libcurl"
+	@echo "make download_qtav				- Download qtav source code"
+	@echo "make qtav					- Download and compile qtav"
+	@echo "make download_viper				- Download viper and libdash source code"
+	@echo "make build_libdash				- Download viper and libdash and compile libdash" 
 	@echo "make update					- Update hicn and libparc source code"
 	@echo "make update_hicn				- Update hicn source code"
 	@echo "make update_libparc				- Update libparc source code"	
