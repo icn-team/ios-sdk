@@ -137,7 +137,7 @@ all: openssl libevent libconfig asio libparc hicn
 
 qt_dep: init_qt ffmpeg qtav curl libdash
 
-all_qt: all qt_dep
+all_qt: qt_dep all
 
 help:
 	@echo "---- Basic build targets ----"
