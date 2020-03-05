@@ -16,3 +16,10 @@ Compile everything (dependencies and hICN modules)
 make update
 make all
 ```
+
+Compile everything with Qt (dependencies, hICN modules and Viper dependencies)
+
+```
+make update
+make all_qt
+```
