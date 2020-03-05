@@ -12,14 +12,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Run a one-line script
-      run: echo Hello, world!
-    - name: Run a multi-line script
+    - name: Build
       run: |
-        echo Add other actions to build,
-        echo test, and deploy your project.
-        ls /Applications
         export QT_CI_LOGIN=${{ secrets.QT_CI_LOGIN }}
         export QT_CI_PASSWORD=${{ secrets.QT_CI_PASSWORD }}
-        make init_qt
-        make all
+        make all_qt

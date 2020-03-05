@@ -22,11 +22,22 @@ export QT_VERSION_INSTALL=5132
 export QT_CI_PACKAGES=qt.qt5.${QT_VERSION_INSTALL}.ios,qt.qt5.${QT_VERSION_INSTALL}.qtcharts.ios,qt.qt5.${QT_VERSION_INSTALL}.qtcharts
 
 init:
-	@mkdir -p usr/lib && mkdir -p usr/include && mkdir -p src
+	@mkdir -p usr/lib && mkdir -p usr/include && mkdir -p src && mkdir -p qt
 
 init_qt:
 	@mkdir -p qt
-	@cd qt && if [ ! -d qtci ]; then git clone https://github.com/benlau/qtci.git; fi && export PATH=`pwd`/qtci/bin:`pwd`/qtci/recipes:"${PATH}" && install-qt ${QT_VERSION}
+	@if [ ! -d ${BASE_DIR}/qt/Qt ]; then \
+		if [ -z ${QT_CI_LOGIN} ] || [ -z ${QT_CI_PASSWORD} ]; then \
+			echo "QT_CI_LOGIN and/or QT_CI_PASSWORD not set."; \
+			echo "export QT_CI_LOGIN=<qt username>"; \
+			echo "export QT_CI_PASSWORD=<qt password>"; \
+			echo "If you don't have a qt account, please create a new one on:"; \
+			echo "https://login.qt.io/register"; \
+			exit 1; \
+		else \
+			cd qt && if [ ! -d qtci ]; then git clone https://github.com/benlau/qtci.git; fi && export PATH=`pwd`/qtci/bin:`pwd`/qtci/recipes:"${PATH}" && install-qt ${QT_VERSION}; \
+		fi; \
+	fi
 
 openssl: init
 	@if [ ! -d usr/include/openssl ]; then cd scripts/OpenSSL-for-iPhone && ./build-libssl.sh --cleanup  --deprecated --targets="ios-sim-cross-x86_64 ios64-cross-arm64 ios64-cross-arm64e" && cp -r include/openssl ../../usr/include && cp -r lib/*.a ../../usr/lib; fi;
@@ -78,14 +89,45 @@ hicn: download_hicn
 	@mkdir -p build/hicn/SIMULATOR64 && cd build/hicn/SIMULATOR64 && cmake ${BASE_DIR}/src/hicn -G Xcode -DCMAKE_TOOLCHAIN_FILE=${BASE_DIR}/cmake/ios.toolchain.cmake -DPLATFORM=SIMULATOR64 -DCMAKE_FIND_ROOT_PATH=${BASE_DIR}/usr  -DCMAKE_INSTALL_PREFIX=${BASE_DIR}/build/hicn/SIMULATOR64 -DOPENSSL_ROOT_DIR=${BASE_DIR}/usr -DDISABLE_EXECUTABLES=ON -DDISABLE_SHARED_LIBRARIES=ON -DDEPLOYMENT_TARGET=13.0 && cmake --build . --config Release --target install
 	@cp -rf ${BASE_DIR}/build/hicn/OS64/include/* ${BASE_DIR}/usr/include/
 	@lipo -create ${BASE_DIR}/build/hicn/OS64/lib/libfacemgr.a ${BASE_DIR}/build/hicn/SIMULATOR64/lib/libfacemgr.a -output ${BASE_DIR}/usr/lib/libfacemgr.a
-	@lipo -create ${BASE_DIR}/build/hicn/OS64/lib/libhicn-light.a ${BASE_DIR}/build/hicn/SIMULATOR64/lib/libhicn-light.a -output ${BASE_DIR}/usr/lib/libhicn-light.a
+	@lipo -create ${BASE_DIR}/buienld/hicn/OS64/lib/libhicn-light.a ${BASE_DIR}/build/hicn/SIMULATOR64/lib/libhicn-light.a -output ${BASE_DIR}/usr/lib/libhicn-light.a
 	@lipo -create ${BASE_DIR}/build/hicn/OS64/lib/libhicn.a ${BASE_DIR}/build/hicn/SIMULATOR64/lib/libhicn.a -output ${BASE_DIR}/usr/lib/libhicn.a
 	@lipo -create ${BASE_DIR}/build/hicn/OS64/lib/libhicnctrl.a ${BASE_DIR}/build/hicn/SIMULATOR64/lib/libhicnctrl.a -output ${BASE_DIR}/usr/lib/libhicnctrl.a
 	@lipo -create ${BASE_DIR}/build/hicn/OS64/lib/libhicntransport.a ${BASE_DIR}/build/hicn/SIMULATOR64/lib/libhicntransport.a -output ${BASE_DIR}/usr/lib/libhicntransport.a
 
+download_curl: init
+	@cd ${BASE_DIR}/src && if [ ! -d curl ]; then echo "curl not found"; git clone https://github.com/curl/curl.git; cd curl; git checkout tags/curl-7_66_0; fi;
 
+curl: download_curl
+	@mkdir -p build/curl/OS64 && cd build/curl/OS64 && cmake ${BASE_DIR}/src/curl -G Xcode -DCMAKE_TOOLCHAIN_FILE=${BASE_DIR}/cmake/ios.toolchain.cmake -DPLATFORM=OS64 -DCMAKE_FIND_ROOT_PATH=${BASE_DIR}/usr  -DCMAKE_INSTALL_PREFIX=${BASE_DIR}/build/curl/OS64 -DOPENSSL_ROOT_DIR=${BASE_DIR}/usr -DBUILD_CURL_EXE=OFF -DBUILD_SHARED_LIBS=OFF -DBUILD_TESTING=OFF -DDEPLOYMENT_TARGET=13.0 && cmake --build . --config Release --target install
+	@mkdir -p build/curl/SIMULATOR64 && cd build/curl/SIMULATOR64 && cmake ${BASE_DIR}/src/curl -G Xcode -DCMAKE_TOOLCHAIN_FILE=${BASE_DIR}/cmake/ios.toolchain.cmake -DPLATFORM=SIMULATOR64 -DCMAKE_FIND_ROOT_PATH=${BASE_DIR}/usr  -DCMAKE_INSTALL_PREFIX=${BASE_DIR}/build/curl/SIMULATOR64 -DOPENSSL_ROOT_DIR=${BASE_DIR}/usr -DBUILD_CURL_EXE=OFF -DBUILD_SHARED_LIBS=OFF -DBUILD_TESTING=OFF -DDEPLOYMENT_TARGET=13.0 && cmake --build . --config Release --target install
+	@cp -rf ${BASE_DIR}/build/curl/OS64/include/* ${BASE_DIR}/usr/include/
+	@lipo -create ${BASE_DIR}/build/curl/OS64/lib/libcurl.a ${BASE_DIR}/build/curl/SIMULATOR64/lib/libcurl.a -output ${BASE_DIR}/usr/lib/libcurl.a
+
+
+download_ffmpeg: init
+	@cd ${BASE_DIR}/src && if [ ! -d ffmpeg ]; then if [ ! -f ffmpeg-4.2-iOS-lite.tar.gz ]; then echo "ffmpeg not found"; wget https://iweb.dl.sourceforge.net/project/avbuild/iOS/ffmpeg-4.2-iOS-lite.tar.xz; fi; tar xf ffmpeg-4.2-iOS-lite.tar.xz; rm -rf ffmpeg-4.2-iOS-lite.tar.xz; mv ffmpeg-4.2-iOS-lite ffmpeg; fi;
+
+ffmpeg: download_ffmpeg
+	@if [ ! -d ${BASE_DIR}/usr/include/libavcodec ] || [ ! -d ${BASE_DIR}/usr/include/libavfilter ] || [ ! -d ${BASE_DIR}/usr/include/libswresample ] || [ ! -d ${BASE_DIR}/usr/include/libavformat ] || [ ! -d ${BASE_DIR}/usr/include/libavutil ] || [ ! -d ${BASE_DIR}/usr/include/libswscale ]; then cp -rf ${BASE_DIR}/src/ffmpeg/include/* ${BASE_DIR}/usr/include/ ; cp -rf ${BASE_DIR}/src/ffmpeg/lib/* ${BASE_DIR}/usr/lib/; fi;
+
+download_qtav: init
+	@cd ${BASE_DIR}/src && if [ ! -d QtAV ]; then echo "qtav not found"; git clone https://github.com/wang-bin/QtAV.git; cd QtAV; git checkout 0307c174a4197fd33b1c1e7d37406d1ee5df6c82; git submodule update --init; sed -i '' 's/\/usr\/share\/doc/.\/usr\/share\/doc/' deploy.pri; echo "INCLUDEPATH = ${BASE_DIR}/usr/include/" > .qmake.conf; echo "LIBS = -L${BASE_DIR}/usr/lib/" >> .qmake.conf; fi;
+
+qtav: download_qtav
+	@mkdir -p ${BASE_DIR}/build/qtav && cd ${BASE_DIR}/build/qtav && ${BASE_DIR}/qt/Qt/${QT_VERSION}/ios/bin/qmake ${BASE_DIR}/src/QtAV "target.path = ${BASE_DIR}/qt/Qt/5.13.2/ios" "CONFIG+=no-examples release" "share.path=${BASE_DIR}/qt/doc" && make && make install && bash sdk_install.sh
+	
 update_hicn: init
 	@if [ -d ${BASE_DIR}/src/hicn ]; then cd ${BASE_DIR}/src/hicn; git pull; fi;
+
+download_viper: init
+	@cd ${BASE_DIR}/src && if [ ! -d viper ]; then echo "viper not found"; git clone https://github.com/FDio/cicn.git -b viper/master viper;  fi;
+
+libdash: download_viper
+	@mkdir -p build/libdash/OS64 && cd build/libdash/OS64 && cmake ${BASE_DIR}/src/viper/libdash -G Xcode -DCMAKE_TOOLCHAIN_FILE=${BASE_DIR}/cmake/ios.toolchain.cmake -DPLATFORM=OS64 -DCMAKE_FIND_ROOT_PATH=${BASE_DIR}/usr  -DCMAKE_INSTALL_PREFIX=${BASE_DIR}/build/libdash/OS64 -DCOMPILE_FOR_IOS=ON -DDEPLOYMENT_TARGET=13.0 && cmake --build . --config Release --target install
+	@mkdir -p build/libdash/SIMULATOR64 && cd build/libdash/SIMULATOR64 && cmake ${BASE_DIR}/src/viper/libdash -G Xcode -DCMAKE_TOOLCHAIN_FILE=${BASE_DIR}/cmake/ios.toolchain.cmake -DPLATFORM=SIMULATOR64 -DCMAKE_FIND_ROOT_PATH=${BASE_DIR}/usr  -DCMAKE_INSTALL_PREFIX=${BASE_DIR}/build/libdash/SIMULATOR64 -DCOMPILE_FOR_IOS=ON  -DDEPLOYMENT_TARGET=13.0 && cmake --build . --config Release --target install
+	@cp -rf ${BASE_DIR}/build/libdash/OS64/include/* ${BASE_DIR}/usr/include/
+	@lipo -create ${BASE_DIR}/build/libdash/OS64/lib/libdash.a ${BASE_DIR}/build/libdash/SIMULATOR64/lib/libdash.a -output ${BASE_DIR}/usr/lib/libdash.a
+
 
 update_libparc: init
 	@if [ -d ${BASE_DIR}/src/cframework ]; then cd ${BASE_DIR}/src/cframework; git pull; fi;
@@ -93,6 +135,10 @@ update_libparc: init
 update: update_libparc update_hicn
 
 all: openssl libevent libconfig asio libparc hicn
+
+qt_dep: init_qt ffmpeg qtav curl libdash
+
+all_qt: all qt_dep
 
 help:
 	@echo "---- Basic build targets ----"
