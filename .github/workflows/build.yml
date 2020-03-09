@@ -35,6 +35,8 @@ jobs:
         ls
         export QT_CI_LOGIN=${{ secrets.QT_CI_LOGIN }}
         export QT_CI_PASSWORD=${{ secrets.QT_CI_PASSWORD }}
+        mkdir -p usr
+        echo "aaa" > usr/temp.txt
         #if [ ! -d usr ]; then
         #  make all
         #  make ffmpeg
