@@ -27,9 +27,9 @@ jobs:
         cache-name: cache-node-modules
       with:
         path: qt # npm cache files are stored in `~/.npm` on Linux/macOS
-        key: qt-${{ env.cache-name }}
+        key: qt_-${{ env.cache-name }}
         restore-keys: |
-          qt-${{ env.cache-name }}
+          qt_-${{ env.cache-name }}
     - name: Build
       run: |
         ls
