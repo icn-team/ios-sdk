@@ -17,7 +17,7 @@ jobs:
       env:
         cache-name: cache-node-modules
       with:
-        path: cace
+        path: cache
         key: cache-${{ env.cache-name }}
         restore-keys: |
           cache-${{ env.cache-name }}
@@ -28,6 +28,7 @@ jobs:
         export QT_CI_PASSWORD=${{ secrets.QT_CI_PASSWORD }}
         if [ ! -d cache/usr ]; then
           make all_qt
+          mkdir cache
           mv usr cache/usr
           mv qt cache/qt
         else
