@@ -28,7 +28,7 @@ jobs:
         export QT_CI_PASSWORD=${{ secrets.QT_CI_PASSWORD }}
         if [ ! -d cache/usr ]; then
           make all_qt
-          mkdir cache
+          mkdir -p cache
           mv usr cache/usr
           mv qt cache/qt
         else
