@@ -51,7 +51,7 @@ jobs:
         echo "aaa"
         ls -l qt/
         echo "bbb"
-        if [ ! -d qt/Qt ]; then
+        if [ ! -d qt ]; then
           make init_qt
           make qtav
         fi
