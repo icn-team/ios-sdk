@@ -27,8 +27,12 @@ jobs:
         export QT_CI_PASSWORD=${{ secrets.QT_CI_PASSWORD }}
         if [ ! -d usr ]; then
           make all
+          make ffmpeg
+          make curl
+          make libdash
         else
           make libparc
           make hicn
+          make libdash
         fi
         #make all_qt
