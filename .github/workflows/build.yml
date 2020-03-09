@@ -12,13 +12,22 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Cache node modules
+    - name: cache usr
       uses: actions/cache@v1
       env:
-        cache-name: cache-node-modules
+        cache-name: cache-usr-modules
       with:
         path: usr # npm cache files are stored in `~/.npm` on Linux/macOS
         key: usr-${{ env.cache-name }}
+        restore-keys: |
+          usr-${{ env.cache-name }}
+    - name: cache qt
+      uses: actions/cache@v1
+      env:
+        cache-name: cache-qt-modules
+      with:
+        path: qt # npm cache files are stored in `~/.npm` on Linux/macOS
+        key: qt-${{ env.cache-name }}
         restore-keys: |
           usr-${{ env.cache-name }}
     - name: Build
@@ -34,5 +43,9 @@ jobs:
           make libparc
           make hicn
           make libdash
+        fi
+        if [ ! -d qt ]; then
+          make init_qt
+          make qt_av
         fi
         #make all_qt

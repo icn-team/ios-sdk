@@ -35,7 +35,7 @@ init_qt:
 			echo "https://login.qt.io/register"; \
 			exit 1; \
 		else \
-			cd qt && if [ ! -d qtci ]; then git clone https://github.com/benlau/qtci.git; fi && export PATH=`pwd`/qtci/bin:`pwd`/qtci/recipes:"${PATH}" && install-qt ${QT_VERSION}; \
+			cd qt && if [ ! -d qtci ]; then git clone https://github.com/benlau/qtci.git; fi && export PATH=`pwd`/qtci/bin:`pwd`/qtci/recipes:"${PATH}" && install-qt ${QT_VERSION} && rm qt-opensource* && rm -rf qtci && rm -rf Qt/MaintenanceTool.app && rm -rf Examples && rm -rf Docs && rm -rf Qt\ Creator.app; \
 		fi; \
 	fi
 
