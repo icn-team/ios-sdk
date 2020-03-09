@@ -21,15 +21,15 @@ jobs:
         key: usr-${{ env.cache-name }}
         restore-keys: |
           usr-${{ env.cache-name }}
-    - name: cache qt
-      uses: actions/cache@v1
-      env:
-        cache-name: cache-qt-modules
-      with:
-        path: qt # npm cache files are stored in `~/.npm` on Linux/macOS
-        key: qt-${{ env.cache-name }}
-        restore-keys: |
-          qt-${{ env.cache-name }}
+    #- name: cache qt
+    #  uses: actions/cache@v1
+    #  env:
+    #    cache-name: cache-qt-modules
+    #  with:
+    #    path: qt # npm cache files are stored in `~/.npm` on Linux/macOS
+    #    key: qt-${{ env.cache-name }}
+    #    restore-keys: |
+    #      qt-${{ env.cache-name }}
     - name: Build
       run: |
         ls
