@@ -21,33 +21,31 @@ jobs:
         key: usr-${{ env.cache-name }}
         restore-keys: |
           usr-${{ env.cache-name }}
-    #- name: cache qt
-    #  uses: actions/cache@v1
-    #  env:
-    #    cache-name: cache-qt-modules
-    #  with:
-    #    path: qt # npm cache files are stored in `~/.npm` on Linux/macOS
-    #    key: qt-${{ env.cache-name }}
-    #    restore-keys: |
-    #      qt-${{ env.cache-name }}
+    - name: cache qt
+      uses: actions/cache@v1
+      env:
+        cache-name: cache-node-modules
+      with:
+        path: qt # npm cache files are stored in `~/.npm` on Linux/macOS
+        key: qt-${{ env.cache-name }}
+        restore-keys: |
+          qt-${{ env.cache-name }}
     - name: Build
       run: |
         ls
         export QT_CI_LOGIN=${{ secrets.QT_CI_LOGIN }}
         export QT_CI_PASSWORD=${{ secrets.QT_CI_PASSWORD }}
-        mkdir -p usr
-        echo "aaa" > usr/temp.txt
-        #if [ ! -d usr ]; then
-        #  make all
-        #  make ffmpeg
-        #  make curl
-        #  make libdash
-        #else
-        #  make libparc
-        #  make hicn
-        #  make libdash
-        #fi
-        #if [ ! -d qt ]; then
-        #  make init_qt
-        #  make qt_av
-        #fi
+        if [ ! -d usr ]; then
+          make all
+          make ffmpeg
+          make curl
+          make libdash
+        else
+          make libparc
+          make hicn
+          make libdash
+        fi
+        if [ ! -d qt ]; then
+          make init_qt
+          make qt_av
+        fi
