@@ -41,6 +41,9 @@ jobs:
           make curl
           make libdash
         else
+          rm -rf usr/include/parc
+          rm -rf usr/include/hicn
+          rm -rf usr/include/libdash
           make libparc
           make hicn
           make libdash
