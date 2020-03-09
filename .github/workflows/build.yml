@@ -49,4 +49,3 @@ jobs:
         #  make init_qt
         #  make qt_av
         #fi
-        #make all_qt
