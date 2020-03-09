@@ -12,8 +12,23 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Cache node modules
+      uses: actions/cache@v1
+      env:
+        cache-name: cache-node-modules
+      with:
+        path: usr # npm cache files are stored in `~/.npm` on Linux/macOS
+        key: usr-${{ env.cache-name }}
+        restore-keys: |
+          usr-${{ env.cache-name }}
     - name: Build
       run: |
         export QT_CI_LOGIN=${{ secrets.QT_CI_LOGIN }}
         export QT_CI_PASSWORD=${{ secrets.QT_CI_PASSWORD }}
-        make all_qt
+        if [ ! -d usr ]; then
+          make all
+        else
+          make libparc
+          make hicn
+        fi
+        #make all_qt
