@@ -15,7 +15,7 @@ jobs:
     - name: cache usr
       uses: actions/cache@v1
       env:
-        cache-name: cache-usr-modules
+        cache-name: cache-node-modules
       with:
         path: usr # npm cache files are stored in `~/.npm` on Linux/macOS
         key: usr-${{ env.cache-name }}
@@ -36,7 +36,7 @@ jobs:
         export QT_CI_LOGIN=${{ secrets.QT_CI_LOGIN }}
         export QT_CI_PASSWORD=${{ secrets.QT_CI_PASSWORD }}
         #mkdir -p usr
-        #echo "aaa" > usr/temp.txt
+        echo "aaa" > usr/temp.txt
         #if [ ! -d usr ]; then
         #  make all
         #  make ffmpeg
