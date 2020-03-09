@@ -45,7 +45,10 @@ jobs:
           make hicn
           make libdash
         fi
+        echo "aaa"
+        ls -l qt/
+        echo "bbb"
         if [ ! -d qt/Qt ]; then
           make init_qt
-          make qt_av
+          make qtav
         fi
