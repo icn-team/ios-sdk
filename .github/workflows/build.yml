@@ -17,41 +17,25 @@ jobs:
       env:
         cache-name: cache-node-modules
       with:
-        path: usr # npm cache files are stored in `~/.npm` on Linux/macOS
-        key: usr-${{ env.cache-name }}
+        path: cace
+        key: cache-${{ env.cache-name }}
         restore-keys: |
-          usr-${{ env.cache-name }}
-    - name: cache qt
-      uses: actions/cache@v1
-      env:
-        cache-name: cache-node-modules
-      with:
-        path: qt # npm cache files are stored in `~/.npm` on Linux/macOS
-        key: qt_-${{ env.cache-name }}
-        restore-keys: |
-          qt_-${{ env.cache-name }}
+          cache-${{ env.cache-name }}
     - name: Build
       run: |
         ls
         export QT_CI_LOGIN=${{ secrets.QT_CI_LOGIN }}
         export QT_CI_PASSWORD=${{ secrets.QT_CI_PASSWORD }}
-        if [ ! -d usr ]; then
-          make all
-          make ffmpeg
-          make curl
-          make libdash
+        if [ ! -d cache/usr ]; then
+          make all_qt
+          mv usr cache/usr
+          mv qt cache/qt
         else
+          ln -s cache/usr .
           rm -rf usr/include/parc
           rm -rf usr/include/hicn
           rm -rf usr/include/libdash
           make libparc
           make hicn
           make libdash
-        fi
-        echo "aaa"
-        ls -l qt/
-        echo "bbb"
-        if [ ! -d qt ]; then
-          make init_qt
-          make qtav
         fi
