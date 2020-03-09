@@ -32,6 +32,7 @@ jobs:
           qt-${{ env.cache-name }}
     - name: Build
       run: |
+        ls
         export QT_CI_LOGIN=${{ secrets.QT_CI_LOGIN }}
         export QT_CI_PASSWORD=${{ secrets.QT_CI_PASSWORD }}
         if [ ! -d usr ]; then
