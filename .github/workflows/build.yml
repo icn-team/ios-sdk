@@ -35,18 +35,17 @@ jobs:
         ls
         export QT_CI_LOGIN=${{ secrets.QT_CI_LOGIN }}
         export QT_CI_PASSWORD=${{ secrets.QT_CI_PASSWORD }}
-        #if [ ! -d usr ]; then
-        #  make all
-        #  make ffmpeg
-        #  make curl
-        #  make libdash
-        #else
-        #  make libparc
-        #  make hicn
-        #  make libdash
-        #fi
-        ls -l qt/
-        if [ ! -d qt ]; then
+        if [ ! -d usr ]; then
+          make all
+          make ffmpeg
+          make curl
+          make libdash
+        else
+          make libparc
+          make hicn
+          make libdash
+        fi
+        if [ ! -d qt/Qt ]; then
           make init_qt
           make qt_av
         fi
