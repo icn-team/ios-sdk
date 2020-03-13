@@ -23,7 +23,7 @@ jobs:
           cache-${{ env.cache-name }}
     - name: Build
       run: |
-        brew
+       
         ls
         export QT_CI_LOGIN=${{ secrets.QT_CI_LOGIN }}
         export QT_CI_PASSWORD=${{ secrets.QT_CI_PASSWORD }}
@@ -41,3 +41,4 @@ jobs:
           make hicn
           make libdash
         fi
+        brew
