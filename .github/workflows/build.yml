@@ -41,4 +41,4 @@ jobs:
           make hicn
           make libdash
         fi
-       brew
+        brew
