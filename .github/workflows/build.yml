@@ -42,4 +42,5 @@ jobs:
           make libdash
         fi
         cd hICNTools
-        xcodebuild clean -workspace hICNTools.xcworkspace -scheme hICNTools DEVELOPMENT_TEAM=${{ DEVELOPMENT_TEAM }}
+        pod install
+        xcodebuild clean -workspace hICNTools.xcworkspace -scheme hICNTools DEVELOPMENT_TEAM=${{ secrets.DEVELOPMENT_TEAM }}
