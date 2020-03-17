@@ -41,4 +41,5 @@ jobs:
           make hicn
           make libdash
         fi
-        brew
+        cd hICNTools
+        xcodebuild clean -workspace hICNTools.xcworkspace -scheme hICNTools DEVELOPMENT_TEAM=${{ DEVELOPMENT_TEAM }}
