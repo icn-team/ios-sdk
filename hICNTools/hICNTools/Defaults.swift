@@ -1,5 +1,4 @@
 import UIKit
-import SwiftCharts
 
 struct Defaults {
     

@@ -8,24 +8,48 @@
 
 import UIKit
 import Charts
-import SwiftCharts
+import Panels
 
 class HIperfViewController: BaseViewController {
-
+    lazy var panelManager = Panels(target: self)
+    lazy var panel = UIStoryboard.instantiatePanel(identifier: "PanelDetails")
+    var panelConfiguration: PanelConfiguration!
     var chartDataEntryArray = [ChartDataEntry]()
     var values = [Int]()
     
+    @IBOutlet weak var fixedWindowSizeSwitch: UISwitch!
+    @IBOutlet weak var rtcProtocolSwitch: UISwitch!
+    @IBOutlet weak var lifeTime: UITextField!
+    @IBOutlet weak var dropFactor: UITextField!
+    @IBOutlet weak var betaFactor: UITextField!
     @IBOutlet weak var hicnPrefix: UITextField!
-    
+    @IBOutlet weak var windowSize: UITextField!
     @IBOutlet var chartView: LineChartView!
+    @IBOutlet weak var startButton: UIButton!
+    @IBOutlet weak var stopButton: UIButton!
     
     var index = Int(0)
+    let constants = Constants()
+    let savedValues = UserDefaults.standard
     
     var timer = RepeatingTimer(timeInterval: 1  )
+    
+    
+    struct defaultsKeys {
+        static let hicnPrefix = "hicnPrefix"
+        static let beta = "beta"
+        static let dropFactor = "dropFactor"
+        static let lifeTime = "lifeTime"
+        static let rtcProtocol = "rtcProtocol"
+        static let fixedWindowSize = "fixedWindowSize"
+        static let windowSize = "windowSize"
+        
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "hIperf"
-            
         chartView.delegate = self
         
         chartView.chartDescription?.enabled = false
@@ -56,12 +80,53 @@ class HIperfViewController: BaseViewController {
         marker.chartView = chartView
         marker.minimumSize = CGSize(width: 80, height: 40)
         chartView.marker = marker
-            
-   //         chartView.legend.form = .line
         chartView.legend.enabled = false
         
         initGraph()
-    
+        
+        if savedValues.string(forKey: defaultsKeys.hicnPrefix) == nil {
+           hicnPrefix.text = String(constants.DEFAULT_HICNPREFIX)
+        } else {
+           hicnPrefix.text = savedValues.string(forKey: defaultsKeys.hicnPrefix)
+        }
+
+        if savedValues.string(forKey: defaultsKeys.beta) == nil {
+            betaFactor.text = String(constants.DEFAULT_BETA)
+        } else {
+            betaFactor.text = savedValues.string(forKey: defaultsKeys.beta)
+        }
+        
+        if savedValues.string(forKey: defaultsKeys.dropFactor) == nil {
+            dropFactor.text = String(constants.DEFAULT_DROP_FACTOR)
+        } else {
+            dropFactor.text = savedValues.string(forKey: defaultsKeys.dropFactor)
+        }
+        
+        if savedValues.string(forKey: defaultsKeys.lifeTime) == nil {
+            lifeTime.text = String(constants.DEFAULT_LIFETIME)
+        } else {
+            lifeTime.text = savedValues.string(forKey: defaultsKeys.lifeTime)
+        }
+        
+        if savedValues.object(forKey: defaultsKeys.rtcProtocol) == nil {
+            rtcProtocolSwitch.isOn = constants.DEFAULT_RTCPROTOCOL
+        } else {
+            rtcProtocolSwitch.isOn = savedValues.bool(forKey: defaultsKeys.rtcProtocol)
+        }
+        
+        if savedValues.object(forKey: defaultsKeys.fixedWindowSize) == nil {
+            fixedWindowSizeSwitch.isOn = constants.DEFAULT_FIXEDWINDOWSIZE
+            windowSize.isEnabled = constants.DEFAULT_FIXEDWINDOWSIZE
+        } else {
+            fixedWindowSizeSwitch.isOn = savedValues.bool(forKey: defaultsKeys.fixedWindowSize)
+            windowSize.isEnabled = fixedWindowSizeSwitch.isOn
+        }
+        
+        if savedValues.string(forKey: defaultsKeys.windowSize) == nil {
+            windowSize.text = String(constants.DEFAULT_WINDOW_SIZE)
+        } else {
+            windowSize.text = savedValues.string(forKey: defaultsKeys.windowSize)
+        }
     
     }
 
@@ -121,32 +186,11 @@ class HIperfViewController: BaseViewController {
             chartDataEntryArray.remove(at: 0)
             values.remove(at: 0)
         }
-        
-        
-        /*let formatter = DateFormatter()
-
-        formatter.dateStyle = .long
-
-        formatter.timeStyle = .medium
-
-        formatter.timeZone = TimeZone.current
-
-
-        let current = formatter.string(from: Date())
-
-
-        let stringCurrent = formatter.date(from: current)
-
-        let inMillis = stringCurrent!.timeIntervalSince1970*/
-        //print(inMillis)
-        //values = [ChartDataEntry]()
         chartDataEntryArray.append(ChartDataEntry(x: Double(index), y: Double(value)))
         values.append(value)
         let maxValue = values.max()
         chartView.xAxis.axisMinimum = Double(self.index - 30)
         chartView.xAxis.axisMaximum = Double(self.index + 1)
-        //values.append(ChartDataEntry(x: Double(1), y: Double(10)))
-        //values.append(ChartDataEntry(x: Double(2), y: Double(10)))
 
         let set1 = LineChartDataSet(entries: chartDataEntryArray)
         set1.drawIconsEnabled = false
@@ -182,52 +226,35 @@ class HIperfViewController: BaseViewController {
         chartView.animate(xAxisDuration: 0)
         
     }
-    
-      /*  func setDataCount(_ count: Int, range: UInt32) {
-            let values = (0..<count).map { (i) -> ChartDataEntry in
-                let val = Double(arc4random_uniform(range) + 3)
-                return ChartDataEntry(x: Double(i), y: val)
-            }
-            
-            let set1 = LineChartDataSet(entries: values)
-            set1.drawIconsEnabled = false
-            
-            set1.lineDashLengths = [5, 2.5]
-            set1.highlightLineDashLengths = [5, 2.5]
-            set1.setColor(.black)
-            set1.setCircleColor(.black)
-            set1.lineWidth = 1
-            set1.circleRadius = 3
-            set1.drawCircleHoleEnabled = false
-            set1.valueFont = .systemFont(ofSize: 9)
-            set1.formLineDashLengths = [5, 2.5]
-            set1.formLineWidth = 1
-            set1.formSize = 15
-            
-            let gradientColors = [ChartColorTemplates.colorFromString("#00ff0000").cgColor,
-                                  ChartColorTemplates.colorFromString("#ffff0000").cgColor]
-            let gradient = CGGradient(colorsSpace: nil, colors: gradientColors as CFArray, locations: nil)!
-            
-            set1.fillAlpha = 1
-            set1.fill = Fill(linearGradient: gradient, angle: 90) //.linearGradient(gradient, angle: 90)
-            set1.drawFilledEnabled = true
-            
-            let data = LineChartData(dataSet: set1)
-            
-            chartView.data = data
-            chartView.animate(xAxisDuration: 0)
-        }*/
-        
-
 
     @IBAction func startButton(_ sender: Any) {
+        
+        startButton.isEnabled = false
+        stopButton.isEnabled = true
+        
+        savedValues.set(hicnPrefix.text, forKey: defaultsKeys.hicnPrefix)
+        savedValues.set(betaFactor.text, forKey: defaultsKeys.beta)
+        savedValues.set(dropFactor.text, forKey: defaultsKeys.dropFactor)
+        savedValues.set(lifeTime.text, forKey: defaultsKeys.lifeTime)
+        savedValues.set(rtcProtocolSwitch.isOn, forKey: defaultsKeys.rtcProtocol)
+        savedValues.set(fixedWindowSizeSwitch.isOn, forKey: defaultsKeys.fixedWindowSize)
+        savedValues.set(windowSize.text, forKey: defaultsKeys.windowSize)
         timer = RepeatingTimer(timeInterval: 1  )
         print(hicnPrefix.text!)
-        var buffer: [CChar]?
+        var hicnPrefixCChar: [CChar]?
+        let betaFactorFloat = Float(betaFactor.text!) ?? 0
+        let dropFactorFloat = Float(dropFactor.text!) ?? 0
+        var windowSizeInt = 0
+        if self.fixedWindowSizeSwitch.isOn == true {
+            windowSizeInt = Int(windowSize.text!) ?? 0
+        }
+        
+        let rtcProtocol = rtcProtocolSwitch.isOn == true ? 1 : 0
+        let interestLifetimeInt = Int(lifeTime.text!) ?? 0
         let queue = DispatchQueue(label: "hiperf")
-        buffer = self.hicnPrefix.text?.cString(using: .utf8)
+        hicnPrefixCChar = self.hicnPrefix.text?.cString(using: .utf8)
         queue.async {
-            startHiperf(buffer, 0,0,0,1000,0, 1000)
+            startHiperf(hicnPrefixCChar, betaFactorFloat, dropFactorFloat, Int32(windowSizeInt),1000, rtcProtocol, interestLifetimeInt)
         }
         self.index = 0
         
@@ -239,8 +266,6 @@ class HIperfViewController: BaseViewController {
         
         timer.eventHandler = {
             DispatchQueue.main.async {
-                //Do UI Code here.
-                //Call Google maps methods.
                 let value = getValue()
                 self.addData(Int(value)) //self.index%100)
                 self.index = self.index + 1
@@ -256,5 +281,24 @@ class HIperfViewController: BaseViewController {
         timer.suspend()
         
         stopHiperf()
+        
+        startButton.isEnabled = true
+        stopButton.isEnabled = false
     }
+    @IBAction func rtcProtocolOnChange(_ sender: Any) {
+        if self.rtcProtocolSwitch.isOn {
+            print("rtcProtocolOn")
+        } else {
+            print("rtcProtocolOff")
+        }
+        
+    }
+    @IBAction func fixedWindowSizeOnChange(_ sender: Any) {
+        if self.fixedWindowSizeSwitch.isOn {
+            self.windowSize.isEnabled = true
+        } else {
+            self.windowSize.isEnabled = false
+        }
+    }
+    
 }

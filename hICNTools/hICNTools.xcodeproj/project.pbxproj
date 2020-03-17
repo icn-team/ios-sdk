@@ -10,11 +10,12 @@
 		9C8B625786B575A9EE58D16D /* Pods_hICNTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D09C5D1B700F54B072E78E61 /* Pods_hICNTools.framework */; };
 		BD23D617241A92E00094E43F /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD23D616241A92E00094E43F /* BaseViewController.swift */; };
 		BD23D619241A93B50094E43F /* BalloonMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD23D618241A93B50094E43F /* BalloonMarker.swift */; };
-		BD23D61B241A95360094E43F /* Env.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD23D61A241A95360094E43F /* Env.swift */; };
-		BD23D61D241A95BB0094E43F /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD23D61C241A95BB0094E43F /* Defaults.swift */; };
 		BD23D61F241B85370094E43F /* RepeatingTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD23D61E241B85370094E43F /* RepeatingTimer.swift */; };
 		BD23D623241B92CB0094E43F /* hiperf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD23D621241B92CB0094E43F /* hiperf.cpp */; };
 		BD23D626241BA2D30094E43F /* hi_perf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD23D624241BA2D30094E43F /* hi_perf.cpp */; };
+		BD76CD832420C1B400902E46 /* ForwarderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD76CD812420C1B400902E46 /* ForwarderViewController.swift */; };
+		BD76CD842420C1B400902E46 /* ForwarderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD76CD822420C1B400902E46 /* ForwarderViewController.xib */; };
+		BD76CD862420C24D00902E46 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD76CD852420C24D00902E46 /* Constants.swift */; };
 		BD7E0169241A888B0081877D /* HIperfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7E0167241A888B0081877D /* HIperfViewController.swift */; };
 		BD7E016A241A888B0081877D /* HIperfViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD7E0168241A888B0081877D /* HIperfViewController.xib */; };
 		BDB213EB241A5AD8006BD240 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB213EA241A5AD8006BD240 /* AppDelegate.swift */; };
@@ -29,14 +30,15 @@
 		7B255F81664ED02A321709C0 /* Pods-hICNTools.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hICNTools.debug.xcconfig"; path = "Target Support Files/Pods-hICNTools/Pods-hICNTools.debug.xcconfig"; sourceTree = "<group>"; };
 		BD23D616241A92E00094E43F /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		BD23D618241A93B50094E43F /* BalloonMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalloonMarker.swift; sourceTree = "<group>"; };
-		BD23D61A241A95360094E43F /* Env.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Env.swift; sourceTree = "<group>"; };
-		BD23D61C241A95BB0094E43F /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		BD23D61E241B85370094E43F /* RepeatingTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatingTimer.swift; sourceTree = "<group>"; };
 		BD23D620241B92CA0094E43F /* hICNTools-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "hICNTools-Bridging-Header.h"; sourceTree = "<group>"; };
 		BD23D621241B92CB0094E43F /* hiperf.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = hiperf.cpp; sourceTree = "<group>"; };
 		BD23D622241B92CB0094E43F /* hiperf.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = hiperf.hpp; sourceTree = "<group>"; };
 		BD23D624241BA2D30094E43F /* hi_perf.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = hi_perf.cpp; sourceTree = "<group>"; };
 		BD23D625241BA2D30094E43F /* hi_perf.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = hi_perf.hpp; sourceTree = "<group>"; };
+		BD76CD812420C1B400902E46 /* ForwarderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForwarderViewController.swift; sourceTree = "<group>"; };
+		BD76CD822420C1B400902E46 /* ForwarderViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ForwarderViewController.xib; sourceTree = "<group>"; };
+		BD76CD852420C24D00902E46 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		BD7E0167241A888B0081877D /* HIperfViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HIperfViewController.swift; sourceTree = "<group>"; };
 		BD7E0168241A888B0081877D /* HIperfViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HIperfViewController.xib; sourceTree = "<group>"; };
 		BDB213E7241A5AD8006BD240 /* hICNTools.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hICNTools.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -104,6 +106,8 @@
 				BDB213EA241A5AD8006BD240 /* AppDelegate.swift */,
 				BDB213EC241A5AD8006BD240 /* SceneDelegate.swift */,
 				BDB213EE241A5AD8006BD240 /* FirstViewController.swift */,
+				BD76CD812420C1B400902E46 /* ForwarderViewController.swift */,
+				BD76CD822420C1B400902E46 /* ForwarderViewController.xib */,
 				BDB213F2241A5AD8006BD240 /* Main.storyboard */,
 				BDB213F5241A5AD9006BD240 /* Assets.xcassets */,
 				BDB213F7241A5AD9006BD240 /* LaunchScreen.storyboard */,
@@ -112,14 +116,13 @@
 				BD7E0168241A888B0081877D /* HIperfViewController.xib */,
 				BD23D616241A92E00094E43F /* BaseViewController.swift */,
 				BD23D618241A93B50094E43F /* BalloonMarker.swift */,
-				BD23D61A241A95360094E43F /* Env.swift */,
-				BD23D61C241A95BB0094E43F /* Defaults.swift */,
 				BD23D61E241B85370094E43F /* RepeatingTimer.swift */,
 				BD23D621241B92CB0094E43F /* hiperf.cpp */,
 				BD23D622241B92CB0094E43F /* hiperf.hpp */,
 				BD23D620241B92CA0094E43F /* hICNTools-Bridging-Header.h */,
 				BD23D624241BA2D30094E43F /* hi_perf.cpp */,
 				BD23D625241BA2D30094E43F /* hi_perf.hpp */,
+				BD76CD852420C24D00902E46 /* Constants.swift */,
 			);
 			path = hICNTools;
 			sourceTree = "<group>";
@@ -187,6 +190,7 @@
 			files = (
 				BDB213F9241A5AD9006BD240 /* LaunchScreen.storyboard in Resources */,
 				BDB213F6241A5AD9006BD240 /* Assets.xcassets in Resources */,
+				BD76CD842420C1B400902E46 /* ForwarderViewController.xib in Resources */,
 				BD7E016A241A888B0081877D /* HIperfViewController.xib in Resources */,
 				BDB213F4241A5AD8006BD240 /* Main.storyboard in Resources */,
 			);
@@ -242,16 +246,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				BDB213EF241A5AD8006BD240 /* FirstViewController.swift in Sources */,
+				BD76CD862420C24D00902E46 /* Constants.swift in Sources */,
 				BD23D623241B92CB0094E43F /* hiperf.cpp in Sources */,
 				BD7E0169241A888B0081877D /* HIperfViewController.swift in Sources */,
 				BD23D617241A92E00094E43F /* BaseViewController.swift in Sources */,
 				BD23D619241A93B50094E43F /* BalloonMarker.swift in Sources */,
 				BD23D61F241B85370094E43F /* RepeatingTimer.swift in Sources */,
 				BDB213EB241A5AD8006BD240 /* AppDelegate.swift in Sources */,
+				BD76CD832420C1B400902E46 /* ForwarderViewController.swift in Sources */,
 				BD23D626241BA2D30094E43F /* hi_perf.cpp in Sources */,
-				BD23D61D241A95BB0094E43F /* Defaults.swift in Sources */,
 				BDB213ED241A5AD8006BD240 /* SceneDelegate.swift in Sources */,
-				BD23D61B241A95360094E43F /* Env.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,7 +402,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 48JBYTLGAT;
+				
 				INFOPLIST_FILE = hICNTools/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -413,8 +417,6 @@
 					"\"CoreGraphics\"",
 					"-framework",
 					"\"Foundation\"",
-					"-framework",
-					"\"SwiftCharts\"",
 					"-framework",
 					"\"UIKit\"",
 					"-lhicntransport",
@@ -453,7 +455,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 48JBYTLGAT;
 				INFOPLIST_FILE = hICNTools/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -468,8 +469,6 @@
 					"\"CoreGraphics\"",
 					"-framework",
 					"\"Foundation\"",
-					"-framework",
-					"\"SwiftCharts\"",
 					"-framework",
 					"\"UIKit\"",
 					"-lhicntransport",
