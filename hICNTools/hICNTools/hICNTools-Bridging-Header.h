@@ -5,3 +5,4 @@
 #import <Foundation/Foundation.h>
 
 #include "hiperf.hpp"
+#include "hicnFwd.h"

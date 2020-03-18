@@ -192,7 +192,7 @@ namespace transport {
         void HIperfClient::handleTimerExpiration(ConsumerSocket &c,
                                                  const TransportStatistics &stats) {
             const char separator = ' ';
-            const int width = 20;
+ //           const int width = 20;
 
             utils::TimePoint t2 = utils::SteadyClock::now();
             auto exact_duration =

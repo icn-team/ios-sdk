@@ -43,7 +43,7 @@ class HIperfViewController: BaseViewController {
         static let rtcProtocol = "rtcProtocol"
         static let fixedWindowSize = "fixedWindowSize"
         static let windowSize = "windowSize"
-        
+
     }
     
     

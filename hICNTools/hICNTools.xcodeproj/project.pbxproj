@@ -20,10 +20,10 @@
 		BD7E016A241A888B0081877D /* HIperfViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD7E0168241A888B0081877D /* HIperfViewController.xib */; };
 		BDB213EB241A5AD8006BD240 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB213EA241A5AD8006BD240 /* AppDelegate.swift */; };
 		BDB213ED241A5AD8006BD240 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB213EC241A5AD8006BD240 /* SceneDelegate.swift */; };
-		BDB213EF241A5AD8006BD240 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB213EE241A5AD8006BD240 /* FirstViewController.swift */; };
 		BDB213F4241A5AD8006BD240 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BDB213F2241A5AD8006BD240 /* Main.storyboard */; };
 		BDB213F6241A5AD9006BD240 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDB213F5241A5AD9006BD240 /* Assets.xcassets */; };
 		BDB213F9241A5AD9006BD240 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BDB213F7241A5AD9006BD240 /* LaunchScreen.storyboard */; };
+		BDB48B702420E73100A8A7DE /* hicnFwd.c in Sources */ = {isa = PBXBuildFile; fileRef = BDB48B6F2420E73100A8A7DE /* hicnFwd.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,11 +44,12 @@
 		BDB213E7241A5AD8006BD240 /* hICNTools.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hICNTools.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDB213EA241A5AD8006BD240 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BDB213EC241A5AD8006BD240 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		BDB213EE241A5AD8006BD240 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		BDB213F3241A5AD8006BD240 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BDB213F5241A5AD9006BD240 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BDB213F8241A5AD9006BD240 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BDB213FA241A5AD9006BD240 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BDB48B6E2420E73100A8A7DE /* hicnFwd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hicnFwd.h; sourceTree = "<group>"; };
+		BDB48B6F2420E73100A8A7DE /* hicnFwd.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hicnFwd.c; sourceTree = "<group>"; };
 		D09C5D1B700F54B072E78E61 /* Pods_hICNTools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_hICNTools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7C1FCEB724F9CD8E33147B7 /* Pods-hICNTools.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hICNTools.release.xcconfig"; path = "Target Support Files/Pods-hICNTools/Pods-hICNTools.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -103,9 +104,10 @@
 		BDB213E9241A5AD8006BD240 /* hICNTools */ = {
 			isa = PBXGroup;
 			children = (
+				BDB48B6E2420E73100A8A7DE /* hicnFwd.h */,
+				BDB48B6F2420E73100A8A7DE /* hicnFwd.c */,
 				BDB213EA241A5AD8006BD240 /* AppDelegate.swift */,
 				BDB213EC241A5AD8006BD240 /* SceneDelegate.swift */,
-				BDB213EE241A5AD8006BD240 /* FirstViewController.swift */,
 				BD76CD812420C1B400902E46 /* ForwarderViewController.swift */,
 				BD76CD822420C1B400902E46 /* ForwarderViewController.xib */,
 				BDB213F2241A5AD8006BD240 /* Main.storyboard */,
@@ -245,7 +247,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BDB213EF241A5AD8006BD240 /* FirstViewController.swift in Sources */,
 				BD76CD862420C24D00902E46 /* Constants.swift in Sources */,
 				BD23D623241B92CB0094E43F /* hiperf.cpp in Sources */,
 				BD7E0169241A888B0081877D /* HIperfViewController.swift in Sources */,
@@ -253,6 +254,7 @@
 				BD23D619241A93B50094E43F /* BalloonMarker.swift in Sources */,
 				BD23D61F241B85370094E43F /* RepeatingTimer.swift in Sources */,
 				BDB213EB241A5AD8006BD240 /* AppDelegate.swift in Sources */,
+				BDB48B702420E73100A8A7DE /* hicnFwd.c in Sources */,
 				BD76CD832420C1B400902E46 /* ForwarderViewController.swift in Sources */,
 				BD23D626241BA2D30094E43F /* hi_perf.cpp in Sources */,
 				BDB213ED241A5AD8006BD240 /* SceneDelegate.swift in Sources */,
@@ -402,7 +404,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				
 				INFOPLIST_FILE = hICNTools/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -419,6 +420,7 @@
 					"\"Foundation\"",
 					"-framework",
 					"\"UIKit\"",
+					"-lhicn-light",
 					"-lhicntransport",
 					"-lhicn",
 					"-lparc",
@@ -471,6 +473,7 @@
 					"\"Foundation\"",
 					"-framework",
 					"\"UIKit\"",
+					"-lhicn-light",
 					"-lhicntransport",
 					"-lhicn",
 					"-lparc",
