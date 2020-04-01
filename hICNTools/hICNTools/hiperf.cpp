@@ -40,8 +40,8 @@ void startHiperf(const char *hicn_name,
     }
     hiperfClient = new transport::interface::HIperfClient(client_configuration);
 
-    int aaa = hiperfClient->setup();
-    if (aaa != ERROR_SETUP) {
+    int setup = hiperfClient->setup();
+    if (setup != ERROR_SETUP) {
         hiperfClient->run();
     }
 }

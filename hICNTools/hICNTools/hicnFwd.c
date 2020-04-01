@@ -48,10 +48,9 @@ void startHicnFwd(const char *path, size_t pathSize) {
         hicnFwd = forwarder_Create(logger);
         Configuration *hicnFwdConfiguration = forwarder_GetConfiguration(hicnFwd);
         configuration_SetObjectStoreSize(hicnFwdConfiguration, 0);
+        forwarder_SetupLocalListeners(hicnFwd, PORT_NUMBER);
         if (pathTemp != NULL && strlen(pathTemp) >0) {
             forwarder_SetupFromConfigFile(hicnFwd, pathTemp);
-        } else {
-            forwarder_SetupAllListeners(hicnFwd, PORT_NUMBER, NULL);
         }
         _isRunning = true;
         dispatcher_Run(forwarder_GetDispatcher(hicnFwd));
