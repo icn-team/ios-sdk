@@ -11,8 +11,8 @@
 
 
 #include <stdio.h>
-int isRunning();
-void stopHicnFwd();
+int isRunning(void);
+void stopHicnFwd(void);
 void startHicnFwd(const char *path, size_t pathSize);
 
 #endif /* hicnFwd_h */

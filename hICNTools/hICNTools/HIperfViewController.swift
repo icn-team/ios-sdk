@@ -49,6 +49,7 @@ class HIperfViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.title = "hIperf"
         chartView.delegate = self
         
