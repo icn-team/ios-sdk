@@ -2,9 +2,11 @@
 
 set -eo pipefail
 
-xcodebuild -workspace Calculator.xcworkspace \
-            -scheme Calculator\ iOS \
+cd hICNTools
+pod install
+xcodebuild -workspace hICNTools.xcworkspace \
+            -scheme hICNTools
             -sdk iphoneos \
             -configuration AppStoreDistribution \
-            -archivePath $PWD/build/Calculator.xcarchive \
+            -archivePath $PWD/build/hICNTools.xcarchive \
             clean archive | xcpretty

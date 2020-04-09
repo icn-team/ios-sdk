@@ -1,58 +1,30 @@
-name: CI
-
+name: Deploying
 on:
-  schedule:
-    - cron:  '30 1 * * *'  
   push:
-
+    branches:
+      - master
 jobs:
-  build:
-
-    runs-on: macos-latest
-
+  deploy:
+    name: Deploying to Testflight
+    runs-on: macOS-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: cache usr
-      uses: actions/cache@v1
-      env:
-        cache-name: cache-node-modules
-      with:
-        path: cache
-        key: cache-${{ env.cache-name }}
-        restore-keys: |
-          cache-${{ env.cache-name }}
-    - name: Prepare signing
-      uses: ngeri/prepare-signing@v1.0.2
-      with:
-        appStoreConnectPrivateKey: ${{ secrets.appStoreConnectPrivateKey }}
-        keyID: ${{ secrets.keyID }}
-        issuerID: ${{ secrets.issuerID }}
-        keychainName: ${{ secrets.keychainName }}
-        keychainPassword: ${{ secrets.keychainPassword }}
-        base64P12File: ${{ secrets.base64P12File }}
-        p12Password: ${{ secrets.p12Password }}
-        bundleIdentifier: ${{ secrets.bundleIdentifier }}
-        signType: ${{ secrets.signType }}
-    - name: Build
-      run: |
-       
-        ls
-        export QT_CI_LOGIN=${{ secrets.QT_CI_LOGIN }}
-        export QT_CI_PASSWORD=${{ secrets.QT_CI_PASSWORD }}
-        if [ ! -d cache/usr ]; then
-          make all_qt
-          mkdir -p cache
-          mv usr cache/usr
-          mv qt cache/qt
-        else
-          ln -s cache/usr .
-          rm -rf usr/include/parc
-          rm -rf usr/include/hicn
-          rm -rf usr/include/libdash
-          make libparc
-          make hicn
-          make libdash
-        fi
-        cd hICNTools
-        pod install
-        xcodebuild clean -workspace hICNTools.xcworkspace -scheme hICNTools DEVELOPMENT_TEAM=${{ secrets.DEVELOPMENT_TEAM }}
+      - name: Checkout repository
+        uses: actions/checkout@v1
+      - name: Install gpg
+        run: brew install gnupg
+      - name: Setup provisioning profile
+        env:
+          IOS_KEYS: ${{ secrets.IOS_KEYS }}
+        run: ./.github/secrets/decrypt_secrets.sh
+      - name: Archiving project
+        env:
+          PR_NUMBER: $(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
+        run: ./.github/scripts/archive_app.sh
+      - name: Exporting .ipa
+        run: ./.github/scripts/export_ipa.sh
+      - name: Publishing app
+        if: success()
+        env:
+          APPLEID_USERNAME: ${{ secrets.APPLEID_USERNAME }}
+          APPLEID_PASSWORD: ${{ secrets.APPLEID_PASSWORD }}
+        run: ./.github/scripts/publish_testflight.sh
