@@ -2,16 +2,9 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>method</key>
-	<string>app-store</string>
-	<key>uploadBitcode</key>
-	<true/>
-	<key>uploadSymbols</key>
-	<true/>
-	<key>provisioningProfiles</key>
-	<dict>
-		<key>com.cisco.hICNTools</key>
-		<string>match AppStore com.cisco.hICNTools</string>
-	</dict>
+    <key>method</key>
+    <string>app-store</string>
+    <key>teamID</key>
+    <string>48JBYTLGAT</string>
 </dict>
 </plist>
